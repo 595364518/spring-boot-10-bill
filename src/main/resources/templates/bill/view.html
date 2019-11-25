@@ -1,0 +1,38 @@
+﻿<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en" th:replace="main/public :: #public_head"></head>
+<body>
+<!--头部-->
+<header class="publicHeader" th:replace="main/public :: #public_header"></header>
+<!--时间-->
+<section class="publicTime" th:replace="main/public :: #public_time"></section>
+<!--主体内容-->
+<section class="publicMian ">
+    <div class="left" th:replace="main/public :: #public_left"></div>
+    <div class="right">
+        <div class="location">
+            <strong>你现在所在的位置是:</strong>
+            <span>账单管理页面 >> 信息查看</span>
+        </div>
+        <div class="providerView">
+            <p><strong>帐单编号：</strong><span th:text="${bill.bid}"></span></p>
+            <p><strong>商品名称：</strong><span th:text="${bill.billName}"></span></p>
+            <p><strong>商品单位：</strong><span th:text="${bill.billCom}"></span></p>
+            <p><strong>商品数量：</strong><span th:text="${bill.billNum}"></span></p>
+            <p><strong>总金额：</strong><span th:text="${bill.money}"></span></p>
+            <p><strong>供应商：</strong><span th:text="${bill.provider.providerName}"></span></p>
+            <p><strong>是否付款：</strong><span th:text="${bill.pay == 0 ? '未付款':'已付款'}"></span></p>
+            <p><strong>创建时间：</strong><span th:text="${#dates.format(bill.createDate,'yyyy-MM-dd hh:mm:ss')}"></span></p>
+
+            <a onclick="history.back(-1)" href="#">返回</a>
+        </div>
+    </div>
+</section>
+<footer class="footer" th:replace="main/public :: #public_footer"></footer>
+<script th:src="@{/webjars/jquery/3.4.0/jquery.js}"></script>
+<script th:src="@{/js/js.js}"></script>
+<!--
+	<script src="js/time.js"></script>
+	-->
+</body>
+</html>

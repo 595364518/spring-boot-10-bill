@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lhb.springboot.mapper.ImageMapper">
+    <insert id="uploadImage">
+        INSERT INTO `orange_img` (`img_uuid`, `img_name`, `img_url`,`img_zipurl`)
+        VALUES (#{imgUuid}, #{imgName}, #{imgUrl},#{imgZipurl})
+    </insert>
+    <select id="getAllImages" resultType="com.lhb.springboot.entities.Images">
+        select * from `orange_img` where 1=1
+        <if test="imgName!=null and imgName!=''">
+            and img_name like '%${imgName}%'
+        </if>
+    </select>
+</mapper>

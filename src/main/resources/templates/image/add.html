@@ -1,0 +1,41 @@
+﻿<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en" th:replace="main/public :: #public_head"></head>
+<body>
+<!--头部-->
+<header class="publicHeader" th:replace="main/public :: #public_header"></header>
+<!--时间-->
+<section class="publicTime" th:replace="main/public :: #public_time"></section>
+<!--主体内容-->
+<section class="publicMian ">
+    <div class="left" th:replace="main/public :: #public_left(activeUri='user')"></div>
+    <div class="right">
+        <div class="location">
+            <strong>你现在所在的位置是:</strong>
+            <span>图片预览 >> 上传图片页面</span>
+        </div>
+        <div class="providerAdd">
+            <span th:text="${msg}" style="color: red;"></span>
+            <form id="addForm" th:action="@{/image}" enctype="multipart/form-data" method="post" action="#">
+                <!--div的class 为error是验证错误，ok是验证成功-->
+                <span th:text="${msg1}" style="color: red;"></span>
+                <p><input type="file" name="file" accept="image/gif,image/jpg,image/jpeg,image/bmp,image/png"></p>
+                <div class="providerAddBtn">
+                    <!--<a href="#">保存</a>-->
+                    <!--<a href="userList.html">返回</a>-->
+                    <input type="button" value="上传" onclick="$('#addForm').submit()"/>
+                    <input type="button" value="返回" onclick="history.back(-1)"/>
+                </div>
+            </form>
+        </div>
+
+    </div>
+</section>
+<footer class="footer" th:replace="main/public :: #public_footer"></footer>
+<script th:src="@{/webjars/jquery/3.4.0/jquery.js}"></script>
+<script th:src="@{/js/js.js}"></script>
+<!--
+	<script src="js/time.js"></script>
+	-->
+</body>
+</html>

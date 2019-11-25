@@ -1,0 +1,82 @@
+﻿<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en" th:replace="main/public :: #public_head"></head>
+<body>
+<!--头部-->
+<header class="publicHeader" th:replace="main/public :: #public_header"></header>
+<!--时间-->
+<section class="publicTime" th:replace="main/public :: #public_time"></section>
+<!--主体内容-->
+<section class="publicMian ">
+    <div class="left" th:replace="main/public :: #public_left(activeUri='image')"></div>
+        <div class="right">
+            <div class="location">
+                <strong>你现在所在的位置是:</strong>
+                <span>图片预览页面</span>
+            </div>
+            <form id="searchForm" th:action="@{/images}" method="get" action="">
+                <div class="search">
+                    <span>用户名：</span>
+                    <input type="text" th:value="${imgName}" name="imgName" placeholder="请输入图片名"/>
+                    <input type="button" style="cursor:pointer;" onclick="$('#searchForm').submit()" value="查询"/>
+                    <a th:href="@{/toUpload}" href="add.html">上传图片</a>
+                </div>
+            </form>
+            <!--用户-->
+            <table class="providerTable" cellpadding="0" cellspacing="0">
+                <tr class="firstTr">
+                    <th width="25%" height="20%">图片编号</th>
+                    <th width="25%" height="20%">图片名称</th>
+                    <th width="25%" height="20%">预览</th>
+                    <th width="25%" height="20%">描述</th>
+                </tr>
+                <tr th:each="a:${images.list}">
+                    <td th:text="${a.getImgUuid()}"></td>
+                    <td><a th:text="${a.getImgName()}" style="color: aqua" th:href="@{/download}+'?imgName='+${a.getImgName()}"></a></td>
+                    <td height="20%"><a class="pre" href="#" th:attr="pre_uri=@{/compress/} + ${a.getImgZipurl()}"><img height="20%" th:src="'/compress/'+${a.getImgZipurl()}"/></a></td>
+                    <td height="20%" style="vertical-align: middle">
+                        <p>点击图片预览图片，如需查看高清图片，</p>
+                        <p>请点击图片名下载图片</p>
+                    </td>
+                </tr>
+                <tr th:hidden="${images.list.isEmpty()}" style="margin: 0 auto; background-color: grey; width: 100%;height: 4%;overflow: hidden">
+                    <td colspan="4" style="text-align: center">
+                        <a th:href="@{/images(start=0)}" style="color: aqua;">[首  页]</a>
+                        <a th:href="@{/images(start=${images.pageNum-1})}" style="color: aqua;">[上一页]</a>
+                        <a th:href="@{/images(start=${images.pageNum+1})}" style="color: aqua;">[下一页]</a>
+                        <a th:href="@{/images(start=${images.pages})}" style="color: aqua;">[末  页]</a>
+                        当前页:<input type="text" style="width: 20px;" readonly="readonly"th:value="${images.pageNum}"/>/总页数:<input type="text" style="width: 20px;" readonly="readonly" th:value="${images.pages}"/>
+                    </td>
+                </tr>
+                <tr th:hidden="${!images.list.isEmpty()}">
+                    <td colspan="4" style="text-align: center">暂无数据...</td>
+                </tr>
+            </table>
+        </div>
+
+    </section>
+
+
+	<!--点击图片后弹出的页面-->
+	<div class="zhezhao"></div>
+
+		<div class="remove1" id="removeProv">
+		   <div class="removerChid">
+			   <h2>预览</h2>
+			   <div class="removeMain" >
+				   <p><img width="50%" id="preImg"/></p>
+				   <a href="#" id="no">返回</a>
+			   </div>
+		   </div>
+		</div>
+
+
+<footer class="footer" th:replace="main/public :: #public_footer"></footer>
+
+<script th:src="@{/webjars/jquery/3.4.0/jquery.js}"></script>
+<script th:src="@{/js/js.js}"></script>
+<!--
+	<script src="js/time.js"></script>
+	-->
+</body>
+</html>

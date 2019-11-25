@@ -1,0 +1,60 @@
+﻿<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en" th:replace="main/public :: #public_head"></head>
+<body>
+<!--头部-->
+<header class="publicHeader" th:replace="main/public :: #public_header"></header>
+<!--时间-->
+<section class="publicTime" th:replace="main/public :: #public_time"></section>
+<!--主体内容-->
+<section class="publicMian ">
+    <div class="left" th:replace="main/public :: #public_left(activeUri='user')"></div>
+    <div class="right">
+        <div class="location">
+            <strong>你现在所在的位置是:</strong>
+            <span>用户管理页面 >> 用户修改页面</span>
+        </div>
+        <div class="providerAdd">
+            <form id="updateForm" th:action="@{/user}" method="post" action="#">
+                <!--div的class 为error是验证错误，ok是验证成功-->
+                <input type="hidden" name="_method" value="put">
+                <input type="hidden" name="userUuid" th:value="${user.userUuid}">
+                <div>
+                    <label for="realName">用户名：</label>
+                    <input type="text" th:value="${user.userName}" name="userName" id="realName" placeholder="韩露"/>
+                    <span >*</span>
+                </div>
+
+                <div>
+                    <label for="userEmail">邮箱：</label>
+                    <input type="text" th:value="${user.userEmail}" name="userEmail" id="userEmail" placeholder="邮箱"/>
+                </div>
+                <div>
+                    <label for="userPhone">电话：</label>
+                    <input type="text" name="userPhone" th:value="${user.userPhone}" id="userPhone" placeholder="电话"/>
+                    <span >*</span>
+                </div>
+                <div>
+                    <label >用户类别：</label>
+                    <input type="radio" name="userLevel" value="1" th:checked="${user.userLevel == 1?true:false}" />管理员
+                    <input type="radio" name="userLevel" value="0" th:checked="${user.userLevel == 0?true:false}"/>普通用户
+                </div>
+                <div class="providerAddBtn">
+                    <!--<a href="#">保存</a>-->
+                    <!--<a href="userList.html">返回</a>-->
+                    <input type="button" value="保存" onclick="$('#updateForm').submit()"/>
+                    <input type="button" value="返回" onclick="history.back(-1)"/>
+                </div>
+            </form>
+        </div>
+
+    </div>
+</section>
+<footer class="footer" th:replace="main/public :: #public_footer"></footer>
+<script th:src="@{/webjars/jquery/3.4.0/jquery.js}"></script>
+<script th:src="@{/js/js.js}"></script>
+<!--
+	<script src="js/time.js"></script>
+	-->
+</body>
+</html>

@@ -15,7 +15,7 @@
     <h1>农作物信息管理系统</h1>
 
     <div class="publicHeaderR">
-        <p><span>下午好！</span><span th:text="${session.loginUser}" style="color: #fff21b"> </span> , 欢迎你！</p>
+        <p><span>下午好！</span><span th:text="${session.loginUser.userName}" style="color: #fff21b"> </span> , 欢迎你！</p>
         <a th:href="@{/logout}" href="../main/login.html">退出</a>
     </div>
 </header>

@@ -10,9 +10,9 @@
 <section class="publicMian">
     <div class="left" th:replace="main/public :: #public_left"></div>
     <div class="right">
-        <img class="wColck" src="../img/clock.jpg" th:src="@{mg/clock.jpg}" alt=""/>
+        <img class="wColck" src="../img/clock.jpg" th:src="@{img/clock.jpg}" alt=""/>
         <div class="wFont">
-            <h2>[[${session.loginUser}]]</h2>
+            <h2>[[${session.loginUser.userName}]]</h2>
             <p>欢迎来到农作物信息管理系统!</p>
 			<span id="hours"></span>
         </div>

@@ -23,7 +23,7 @@
         delete from user where user_uuid = #{userUuid}
     </delete>
     <update id="updateUser">
-        UPDATE`user` SET `user_name`=#{userName},
+        UPDATE`user` SET `user_name`=#{userName},`user_password`=#{userPassword},
         `user_email`=#{userEmail}, `user_phone`=#{userPhone}, `user_level`=#{userLevel}
          WHERE (`user_uuid`=#{userUuid});
     </update>

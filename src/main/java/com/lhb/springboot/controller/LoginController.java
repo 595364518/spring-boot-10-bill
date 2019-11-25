@@ -38,7 +38,7 @@ public class LoginController {
         if(user1!=null){
             System.out.println(user1.getUserName());
             //登录成功
-            session.setAttribute("loginUser",user1.getUserName());
+            session.setAttribute("loginUser",user1);
             session.setAttribute("level",user1.getUserLevel());
             //此处使用请求转发方式跳转到index页面
             //return "main/index";

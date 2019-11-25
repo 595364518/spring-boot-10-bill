@@ -25,14 +25,14 @@
                 </div>
                 <div>
                     <label for="userpassword">密码：</label>
-                    <input type="password" name="userPassword" id="userpassword"/>
+                    <input type="password" name="userPassword" required id="userpassword"/>
                     <span>*密码长度必须大于6位小于20位</span>
 
                 </div>
                 <div>
                     <label for="password">确认密码：</label>
                     <input type="password" name="password" id="password"/>
-                    <span>*请输入确认密码</span>
+                    <span id="errorMsg">*请输入确认密码</span>
                 </div>
                 <div>
                     <label for="userEmail">邮箱：</label>
@@ -50,7 +50,7 @@
                 <div class="providerAddBtn">
                     <!--<a href="#">保存</a>-->
                     <!--<a href="userList.html">返回</a>-->
-                    <input type="button" value="保存" onclick="$('#addForm').submit()"/>
+                    <input type="button" value="保存" id="save"/>
                     <input type="button" value="返回" onclick="history.back(-1)"/>
                 </div>
             </form>
@@ -61,6 +61,19 @@
 <footer class="footer" th:replace="main/public :: #public_footer"></footer>
 <script th:src="@{/webjars/jquery/3.4.0/jquery.js}"></script>
 <script th:src="@{/js/js.js}"></script>
+<script>
+    $(function () {
+        $('#save').click(function () {
+            if($('#userpassword').val().trim()!=$('#password').val().trim()){
+               $('#errorMsg').replaceWith('<span style="color: red">*两次密码不一致</span>');
+               $('#password').html('');
+               $('#password').focus();
+               return;
+            }
+            $('#addForm').submit();
+        })
+    })
+</script>
 <!--
 	<script src="js/time.js"></script>
 	-->

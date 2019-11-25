@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -111,5 +112,33 @@ public class UserController {
     public String delete(@PathVariable(value = "userUuid",required = false)Integer userUuid){
         userMapper.deleteUserByUid(userUuid);
         return "redirect:/users";
+    }
+    @GetMapping("/user/pwd")
+    public String toUpdatePwdPage(){
+        return "user/password";
+    }
+    @ResponseBody
+    @GetMapping("/user/pwd/{oldPwd}")
+    public Boolean validatePwd(HttpSession session, @PathVariable("oldPwd") String oldPwd){
+        logger.info("oldPwd:"+oldPwd);
+        //1.从session中获取当前用户
+        User user = (User) session.getAttribute("loginUser");
+        //2.判断旧密码是否正确
+        if(user.getUserPassword().equals(oldPwd)){
+            return true;
+        }
+        return false;
+    }
+    @PostMapping("/user/pwd")
+    public String updatePwd(HttpSession session,String password){
+        logger.info("password:"+password);
+        //1.从session中获取当前用户
+        User user = (User) session.getAttribute("loginUser");
+        //2.更新密码
+        user.setUserPassword(password);
+        //3.更新数据库
+        userMapper.updateUser(user);
+        //4.注销用户
+        return "redirect:/logout";
     }
 }

@@ -28,8 +28,8 @@ import java.util.UUID;
  * @Description:
  * @Date: Create in 下午 07:57 2019/11/13
  */
-//@Controller
-@RestController
+@Controller
+//@RestController
 public class UploadController {
 
     Logger logger = LoggerFactory.getLogger(getClass());
